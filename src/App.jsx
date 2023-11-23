@@ -4,7 +4,7 @@ import TodoList from "./components/Todos/TodoList";
 import { useSelector } from "react-redux";
 
 function App() {
-  const state = useSelector((state) => state.todo);
+  const state = useSelector((state) => state.todos);
   console.log(state);
   return (
     <div className="container pt-3">

@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AddTodo } from "../../features/todo/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { addAsyncTodos } from "../../features/todo/todoSlice";
 
 const AddTodoForm = () => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.todos);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value) return;
-    dispatch(AddTodo({ title: value }));
+    dispatch(addAsyncTodos({ title: value }));
     setValue("");
   };
 
@@ -27,7 +28,7 @@ const AddTodoForm = () => {
         onChange={(event) => setValue(event.target.value)}
       />
       <button type="submit" className="btn btn-primary mt-1">
-        submit
+        {loading ? "submitting..." : "submit"}
       </button>
     </form>
   );
