@@ -1,7 +1,12 @@
-import { useDispatch } from "react-redux";
-import { deleteTodo, toggleTodo } from "../../features/todo/todoSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  deleteAsyncTodo,
+  toggleAsyncTodo,
+  toggleTodo,
+} from "../../features/todo/todoSlice";
 
 export default function TodoItem({ id, title, completed }) {
+  const { loading } = useSelector((state) => state.todos);
   const dispatch = useDispatch();
   return (
     <li className={`list-group-item ${completed && "list-group-item-success"}`}>
@@ -9,7 +14,7 @@ export default function TodoItem({ id, title, completed }) {
         <span className="d-flex align-items-center gap-1">
           <input
             onChange={() => {
-              dispatch(toggleTodo({ id }));
+              dispatch(toggleAsyncTodo({ id, completed: !completed }));
             }}
             type="checkbox"
             className="mr-3"
@@ -19,11 +24,11 @@ export default function TodoItem({ id, title, completed }) {
         </span>
         <button
           onClick={() => {
-            dispatch(deleteTodo({ id }));
+            dispatch(deleteAsyncTodo({ id }));
           }}
           className="btn btn-danger"
         >
-          Delete
+          {loading ? "Deleting..." : "Delete"}
         </button>
       </div>
     </li>

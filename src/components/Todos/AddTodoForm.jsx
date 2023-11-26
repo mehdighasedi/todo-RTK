@@ -14,7 +14,12 @@ const AddTodoForm = () => {
   };
 
   return (
-    <form className={`form-inline mt-3 mb-4 `} onSubmit={handleSubmit}>
+    <form
+      className={`form-inline mt-3 mb-4 ${
+        loading ? "opacity-50" : "opacity-100"
+      }`}
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="name" className="mb-1">
         Name
       </label>
@@ -27,7 +32,7 @@ const AddTodoForm = () => {
         value={value}
         onChange={(event) => setValue(event.target.value)}
       />
-      <button type="submit" className="btn btn-primary mt-1">
+      <button disabled={loading} type="submit" className="btn btn-primary mt-1">
         {loading ? "submitting..." : "submit"}
       </button>
     </form>
